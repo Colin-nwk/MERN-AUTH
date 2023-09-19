@@ -25,4 +25,17 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { protect };
+//!added but not tested
+
+const isAdmin = asyncHandler(async (req, res, next)=> {
+ this.protect(req, res, () => {
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      res.status(403);
+      throw new Error("You are not Authorized!");
+    }
+  });
+})
+
+export { protect, isAdmin };
